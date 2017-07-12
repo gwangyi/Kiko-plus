@@ -1,0 +1,18 @@
+- title: A Small Non-Volatile Write Buffer to Reduce Storage Writes in Smartphones
+  author: M. Son, S. Lee, K. Kim, S. Yoo, and S. Lee
+  pub: Proc. Design Automation and Test in Europe (DATE)
+  date: March 2015
+  doi: 10.7873/DATE.2015.0726
+
+- title: Hybrid DRAM/PRAM-based Main Memory for Single-Chip CPU/GPU
+  author: D. Kim, S. Lee, J. Chung, D. Kim, D. Woo, S. Yoo, and S. Lee
+  pub: Proc. DAC
+  date: June 2012
+  doi: 10.1145/2228360.2228519
+
+- title: Reducing read latency in phase-change RAM-based main memory
+  author: S. Lee, S. Yoo, and S. Lee
+  pub: Proc. MWSCAS, 2011
+  date: August 2011
+  doi: 10.1109/MWSCAS.2011.6026382
+

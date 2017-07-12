@@ -1,0 +1,6 @@
+- title: "Differential Write-Conscious Software Design on Phase-Change Memory: An SQLite Case Study"
+  author: S. Lee, T. Lee, H. Park, J. Ahn, S. Yoo, Y. Won, and S. Lee
+  pub: ACM Transactions on Design Automation of Electronic Systems (TODAES)
+  date: May, 2016
+  doi: 10.1145/2842613
+

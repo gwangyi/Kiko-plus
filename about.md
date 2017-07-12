@@ -3,129 +3,86 @@ title: About
 permalink: /about/
 ---
 
-You can see live demo [here](https://aweekj.github.io/Kiko-plus). This theme is inspired by [Kiko](http://github.com/gfjaru/Kiko) theme.
+## Sungkwang Lee
 
-## Features
+#### Employment
 
-- Disqus comment system
-- Google analytics
-- Pagination support
-- Custom tags
-- SEO support
+{% for job in site.data.resume.jobs %}
+{{ job.title }}
+: _{{ job.company }}_ &#x2015; {{ job.period }}
+{% for project in job.projects %}
 
+  {{ project }}
+{% endfor %}
+{% endfor %}
 
-## Installation
+#### Education
 
-#### Method 1: new master's repository (The Best)
+{% for edu in site.data.resume.education %}
+{{ edu.qualification }}
+: _{{ edu.school }}_ &#x2015; {{ edu.period }}
+{% for item in edu.items %}
+  {{ item }}
+{% endfor %}
 
-1. First [fork](https://github.com/AWEEKJ/Kiko-plus/fork) it.
-2. Change your forked repository name _Kiko-plus_ to __USERNAME.github.io__ where __USERNAME__ is your github username.
-3. Access your new blog via [https://username.github.io](https://username.github.io).
-4. [See configuration](#configuration).
+{% endfor %}
 
-#### Method 2: gh-pages in existing repository
+#### Miscellaneous Experience
 
-1. Create a new branch called _gh-pages_ in the repository where you want to add a template [managing branches](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/).
-2. From command line run `git clone https://github.com/AWEEKJ/Kiko-plus.git` - this will clone _Kiko-plus_ template to your computer.
-3. Create new branch `git checkout -b gh-pages` where _gh-pages_ will be your branch name.
-4. Add remote, which is your repo from the first step, to your new branch `git remote add gh-pages https://github.com/<yourName>/<yourMaster>/gh-pages`. _yourName_ is your account name and _yourMaster_ is your repository.
-5. Push new branch to remote `git push gh-pages`.
-6. Update `_config.yml` file by changing `baseurl: "<branchName>"` _branchName_ is your branch name where _gh-pages_ resides. See [configuration](#configuration).
+{% for exp in site.data.resume.experience %}
+{{ exp.title }}
+: {{ exp.detail }}
 
-#### Method 3: Run it locally
+{% endfor %}
 
-1. Download [zip](https://github.com/AWEEKJ/Kiko-plus/archive/master.zip) or clone it `git clone https://github.com/AWEEKJ/Kiko-plus`.
-2. Go inside folder and run `jekyll serve` or `rake preview`. This will build a website which you can access [https://localhost:4000](https://localhost:4000). You need to have [Jekyll](https://jekyllrb.com/docs/installation/) installed to do this.
+#### Professional Qualifications
 
+{% for qual in site.data.resume.qualifications %}
+{{ qual.title }}
+: {{ qual.detail }}
 
-## Configuration
+{% endfor %}
 
-All configuration is done via `_config.yml` file which you will find in your main repo folder. Change this `<something>` to yours.
+#### Foreign Languages
 
-### Basic
+{% for lang in site.data.resume.languages %}
+{{ lang.language }}
+: {{ lang.grade }}
 
-- Config your blog name.
+{% endfor %}
 
-```yml
-name: <blog-name>
-```
+#### Programming Skills
 
-- These configuration in `author:` is for links to icons in footer. If you want to add more link icons, modify `_includes/footer.html` file.
+{% for prog in site.data.resume.programming %}
+{{ prog.grade }}
+: {{ prog.title }}
 
-```yml
-author:
-  facebook:         your-id
-  twitter:          your-id
-  github:           your-id
-  linkedin:         your-id
-  medium:           your-id
-  tumblr:           your-id
-  email:            your-id@your-email.com
-```
+{% endfor %}
 
-- Change copyright year and name in footer.
+#### Interests
 
-```yml
-copyright:
-  year:             2017
-  name:             Kiko
-```
+{% for interest in site.data.resume.interests %}
+- {{ interest }}
+{% endfor %}
 
-### Google analytics
+#### Publications
 
-- Change this to your Google Analytic ID.
+##### Conference
 
-```yml
-google-analytics:
-  id:               "your-id"
-```
+{% for paper in site.data.resume.conference_paper %}
+* {{ paper.author }}, “**{{ paper.title }}**,” _{{ paper.pub }}_, {{ paper.date }}. [doi:{{ paper.doi }}](http://dx.doi.org/{{ paper.doi }})
+{% endfor %}
 
-### Disqus
+##### Journal
 
-- Change this to your Disqus short name.
+{% for paper in site.data.resume.journal_paper %}
+* {{ paper.author }}, “**{{ paper.title }}**,” _{{ paper.pub }}_, {{ paper.date }}. [doi:{{ paper.doi }}](http://dx.doi.org/{{ paper.doi }})
+{% endfor %}
 
-```yml
-disqus:
-  id:               "your-id"
-```
+#### Awards
 
-### URL
+{% for award in site.data.resume.awards %}
+* **{{ award.title }}**  
+  {{ award.detail }}
+{% endfor %}
 
-- Config your domain.
-
-```yml
-url: "https://<your-name>.github.io"
-```
-
-- **NOTE** When if running locally, change url to 
-
-```yml
-url: "https://localhost:4000"
-```
-
-- Change this to your branch name where _gh-pages_ resides. 
-- **NOTE** apply only if you used __Method 2__ for installation.
-
-```yml
-baseurl: "/<branch-name>"
-```
-
-## Rakefile Usage
-
-```bash
-# Create new post
-$ rake post title="A Title" [date="2015-08-16"] [tags="[tag1, tag2]"] 
-
-# Create new draft post
-$ rake draft title="A Title" [date="2015-08-16"] [tags="[tag1, tag2]"]
-
-# Install Jekyll Plugins. Do before running in local.
-$ rake geminstall
-
-# Run in Local
-$ rake preview
-```
-
-## License
-
-This theme is released under MIT License.
