@@ -11,7 +11,6 @@ permalink: /about/
 {{ job.title }}
 : _{{ job.company }}_ &#x2015; {{ job.period }}
 {% for project in job.projects %}
-
   {{ project }}
 {% endfor %}
 {% endfor %}
@@ -22,9 +21,7 @@ permalink: /about/
 {{ edu.qualification }}
 : _{{ edu.school }}_ &#x2015; {{ edu.period }}
 {% for item in edu.items %}
-  {{ item }}
-{% endfor %}
-
+  - {{ item }} {% endfor %}
 {% endfor %}
 
 #### Miscellaneous Experience

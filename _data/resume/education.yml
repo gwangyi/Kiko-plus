@@ -10,7 +10,10 @@
   period: 2006 to 2010
   items:
     - Scholarship from Korea Government
+    - "Graduation portfolio: Cart Robot using Stereo Vision"
 
 - qualification: BS in CS
   school: POSTECH @ Pohang-si, South Korea
   period: 2006 to 2010
+  items:
+    - "Graduation paper: Stripping DRM with DirectShow"
