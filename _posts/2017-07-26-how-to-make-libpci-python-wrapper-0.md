@@ -115,6 +115,45 @@ fake 리스트에 있는 헤더파일을 include 하면 그대로 리턴하는 �
 구분된 이름과 내용의 쌍을 받으므로 바로 넣을 수 있게 `"NULL 0"` 과 같은 형태로 정의해주었다.
 `typedef`는 헤더파일 내용을 거의 그대로 옮긴 소스파일을 하나 준비하여 그대로 넣는다.
 
+## Line directives
+
+C 코드를 디버깅하려면 문제가 되는 코드가 어떤 파일의 몇 번째 줄에 있는지를 반드시 알아야 한다. 단일
+소스 코드일 때는 그런 정보를 얻는 것이 어렵거나 복잡하지 않지만, `#include` 등을 통해 여러 파일이
+섞이기라도 했으면 별도로 줄 번호를 붙여주는 것이 필요하다. `cpp`와 같은 일반적인 C preprocessor는
+`#include` 등을 통해 다른 파일이 삽입이 되면 그런 줄 번호를 알아서 붙여주지만,
+`ply.cpp.Preprocessor`는 안타깝게도 그런 동작을 전혀 해주지 않는다.
+
+아이디어는 다음과 같다. 매번 토큰을 반환해주는 제네레이터에서 반환되는 토큰을 모니터링 하다가,
+토큰이 반환된 후 `__FILE__` 매크로 값이 변경되면 해당 토큰보다 먼저 line directive의 토큰을 반환시켜
+줄 번호를 달아주면 될 것이다.
+
+토큰을 반환시켜주는 함수는 `ply.cpp.Preprocessor.parsergen()` 함수이므로 이를 override한다. 그 다음
+마지막으로 사용된 `__FILE__`값을 저장하고 있는 멤버 변수를 만들어서, 원래 함수가 호출된 뒤 그 값이
+변경되었으면 line directive를 출력해 줄 번호와 파일 이름을 잘 따라가도록 한다.
+
+Line directive는 C99에서 다음과 같이 정의하고 있다.
+
+```C
+# line digit-sequence "s-char-sequence_opt" new-line
+```
+
+`s-char-sequence_opt`는 옵셔널한 값으로 소스코드 이름을 지정해줄 수 있다. 즉, `__FILE__` 값을
+변경하는데 사용한다. digit-sequence는 바로 다음 행의 행 번호를 지정해준다. 즉, `__LINE__` 값을
+변경할 수 있다. 표준에서는 이 행 번호는 0이 될 수 없다고 한다.
+
+그래서 다음과 같이 `parsegen` 함수를 override하면 되겠다.
+
+```python
+    def parsegen(self, input, source=None):
+        for tok in super().parsegen(input, source):
+            if self._prev_source != self.source:
+                self._prev_source = self.source
+                for t in self.tokenize(f'# {tok.lineno} "{self.source}"'):
+                    yield t
+            yield tok
+```
+
+`self._prev_source` 는 적절히 초기화해주면 될 것이다.
 
 ## 조립하기
 
@@ -150,9 +189,15 @@ typedef uint16_t u16;
 typedef uint32_t u32;
 typedef uint64_t u64;
 #include <pci/pci.h>
-""", fake_defs=True)
+""", fake_defs=True, cpp_args=["-I/usr/include", "-DPCI_HAVE_Uxx_TYPES"])
 
 ast = pycparserlibc.parse(header, 'pypci.h', fake_typedefs=True)
 
 print(ast)
 ```
+
+## 수정 내역
+
+* 2017-07-27
+  - Line directive에 대한 언급 추가
+  - 예제에 `cpp_args` 항목 추가
