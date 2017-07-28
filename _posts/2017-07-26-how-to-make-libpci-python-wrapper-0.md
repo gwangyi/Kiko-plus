@@ -7,6 +7,12 @@ tags: [python, cffi, libpci, pycparser]
 comments: true
 ---
 
+1. [libpci python wrapper를 만들자 (0)][1]
+2. [libpci python wrapper를 만들자 (0-1)][2]
+
+[1]: {{site.url}}/2017-07-26/how-to-make-libpci-python-wrapper-0
+[2]: {{site.url}}/2017-07-28/how-to-make-libpci-python-wrapper-0-1
+
 ## 들어가기 전에
 
 Python은 요즘 딥러닝이 인기를 얻으면서 다시 한번 핫해진 세상에서 가장 핫한 프로그래밍 언어 중
@@ -198,6 +204,8 @@ print(ast)
 
 ## 수정 내역
 
+* 2017-07-28
+  - 맨 처음에 관련글 목록을 추가
 * 2017-07-27
   - Line directive에 대한 언급 추가
   - 예제에 `cpp_args` 항목 추가
